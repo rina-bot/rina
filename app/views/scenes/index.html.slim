@@ -1,0 +1,43 @@
+- @scenes.each do |scene|
+  = simple_form_for(scene, url: scene_path(scene), wrapper: :horizontal_form, as: :scene) do |f|
+    .card.mb-2
+      .card-header
+        .row
+          .input-group.col
+            .input-group-text #
+            = f.number_field :order, class: "form-control"
+          .input-group.col
+            .input-group-text 場景名(內部)
+            = f.text_field :title, class: "form-control"
+          .col
+            = link_to "刪除", scene_path(scene), method: :delete, data: {confirm: "sure?"}, class: "btn btn-danger btn-sm"
+
+      .card-body
+        .card
+          .card-header 前導發言
+          .card-body
+            = f.simple_fields_for :messages, scene.messages.main + [scene.messages.main.build]  do |mf|
+              = render "messages/text_or_file", f: mf
+
+        - case scene
+        - when Scene::WaitFlag
+          = render "scenes/wait_flag", scene: scene, f: f
+        - when Scene::EnqueueRemoteJob
+          = render "scenes/enqueue_remote_job", scene: scene, f: f
+        - when Scene::WaitRemoteJob
+          = render "scenes/wait_remote_job", scene: scene, f: f
+
+        - unless scene.class == Scene
+          .card.mt-2
+            .card-header 結尾發言
+            .card-body
+              = f.simple_fields_for :messages, scene.messages.after + [scene.messages.after.build]  do |mf|
+                = render "messages/text_or_file", f: mf
+
+      .card-footer
+        = f.submit "儲存", class: "btn btn-primary btn-sm"
+
+hr
+
+= link_to new_scene_path, class: "btn btn-primary"
+  | New

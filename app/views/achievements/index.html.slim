@@ -1,0 +1,8 @@
+h5 成就
+- Achievement.all.each do |achievement|
+  = simple_form_for achievement do |f|
+    = render "form", f: f
+
+hr
+= simple_form_for Achievement.new do |f|
+  = render "form", f: f

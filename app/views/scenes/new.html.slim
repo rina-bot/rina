@@ -1,0 +1,6 @@
+h1 新增場景
+
+= simple_form_for @scene do |f|
+  = f.input :title, as: :string
+  = f.input :rails_type, label: "類型", collection: scene_type_options, include_blank: false
+  = f.submit

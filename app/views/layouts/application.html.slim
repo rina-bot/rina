@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title Rina
+    meta content="width=device-width,initial-scale=1" name="viewport" /
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_packs_with_chunks_tag "main/style", 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'main/script', 'data-turbolinks-track': 'reload'
+
+    main.container.pt-3.pb-5
+      = yield
+
+      nav.navbar.fixed-bottom.navbar-dark.bg-dark.navbar-expand-lg
+        .container: .navbar-collapse.collapse: ul.navbar-nav
+          li.nav-item= link_to "劇本", scenes_path, class: "btn btn-sm btn-secondary me-2"
+          li.nav-item= link_to "成就", achievements_path, class: "btn btn-sm btn-secondary"
+          li.nav-item= link_to "登出", sign_out_path, data: {method: "delete"}, class: 'btn btn-sm btn-secondary ms-2'

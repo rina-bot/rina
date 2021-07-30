@@ -1,0 +1,7 @@
+zh-TW:
+  activerecord:
+    attributes:
+      achievement:
+        description: "敘述"
+      scene/wait_flag:
+        required_flags_count: "達成數量"

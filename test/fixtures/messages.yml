@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  scene: one
+  text: MyText
+  sleep_before: 1
+  delay: 1
+  order: 1
+
+two:
+  scene: two
+  text: MyText
+  sleep_before: 1
+  delay: 1
+  order: 1

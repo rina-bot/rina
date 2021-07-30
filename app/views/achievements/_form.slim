@@ -1,0 +1,34 @@
+.card.mb-2
+  .card-header.d-flex.justify-content-between
+      .left
+        .d-flex
+          - if f.object.persisted?
+            .text-nowrap.me-2= "ID: #{f.object.id}"
+          = f.input :name, as: :string, label: false, input_html: { class: "form-control-sm" }, placeholder: "成就名稱", wrapper: false
+      .right
+        - if f.object.persisted?
+          = link_to "刪除", achievement_path(f.object), method: :delete, data: {confirm: "sure?"}, class: "btn btn-danger btn-sm ms-auto"
+
+  .card-body
+    = f.input :description
+
+    .form-group
+      label 全域獲取關鍵字
+
+      .row
+        - (f.object.keywords + [""]).each do |keyword|
+          .col-2
+            = f.text_field :keywords,
+                           value: keyword,
+                           class: "form-control",
+                           name: f.object_name + "[keywords][]"
+
+
+    .card.mt-2
+      .card-header 獲得後發言
+      .card-body
+        = f.simple_fields_for :messages, f.object.messages.after + [f.object.messages.after.build]  do |mf|
+          = render "messages/text_or_file", f: mf
+
+  .card-footer
+    = f.button :submit, class: "btn-primary btn-sm"

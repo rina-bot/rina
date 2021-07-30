@@ -1,0 +1,9 @@
+.row.justify-content-md-center
+  .col.col-6
+    .card
+      .card-body
+        = simple_form_for :session, url: session_path do |form|
+          = form.input :email
+          = form.input :password
+
+          = form.button :submit, class: 'btn-primary'

@@ -1,0 +1,13 @@
+= simple_form_for :form, url: instance_config_path, method: :patch do |f|
+  - unless InstanceConfig.configured?
+    = f.simple_fields_for :admin, @admin_user || User.new do |admin|
+      = admin.input :email
+      = admin.input :password
+
+  = f.fields_for :instance_config do |instance|
+    = instance.input :url_host
+    = instance.input :line_channel_id
+    = instance.input :line_channel_secret
+    = instance.input :line_channel_token
+
+  = f.button :submit, class: "btn-primary"

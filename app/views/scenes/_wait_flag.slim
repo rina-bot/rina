@@ -1,0 +1,21 @@
+.card.mt-2
+  .card-header 等待達成旗標數量
+  .card-body
+    = f.input :required_flags_count, as: :integer
+
+    = f.simple_fields_for :messages, scene.messages.keyword + [scene.messages.keyword.build]  do |mf|
+      = mf.hidden_field :phase
+
+      .card.mb-2
+        .card-header.d-flex
+          span.text-nowrap 關鍵字
+          - (mf.object.keywords + [""]).each do |keyword|
+            = mf.text_field :keywords,
+                            value: keyword,
+                            class: "form-control form-control-sm",
+                            name: mf.object_name + "[keywords][]",
+                            placeholder: "預設: 包含, 特殊語法: =相符 ^前綴 ~後綴"
+
+        .card-body
+          = mf.input :flag
+          = render "messages/text_or_file", f: mf
